@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: frente # Essa API serve somente como ponte de processamento para o estoque
+  kafka:
+    producer:
+      # Aponta para o broker local (Servidor Kafka) no container Docker
+      bootstrap-servers: localhost:9092
+      # Como transformar a "chave" da mensagem em bytes (geralmente String)
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # Como transformar o "valor" (o objeto Pedido) em bytes. O JsonSerializer do Spring faz isso automaticamente.
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        # Acks=1 (padrão): o broker líder precisa confirmar o recebimento
+        acks: 1
+
+server:
+  port: 8081 # Rodando na 8081 para não conflitar com a outra aplicação depois
