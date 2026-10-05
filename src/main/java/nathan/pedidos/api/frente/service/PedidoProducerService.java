@@ -1,12 +1,10 @@
 package nathan.pedidos.api.frente.service;
 
+import nathan.pedidos.api.frente.model.Pedido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import nathan.pedidos.api.frente.model.*;
-
-import java.util.UUID;
 
 @Service
 public class PedidoProducerService {
@@ -14,7 +12,7 @@ public class PedidoProducerService {
     //Usamos esse Logger para promover o registro das mensagens e operações no arquivo envios.txt
     private static final Logger log = LoggerFactory.getLogger(PedidoProducerService.class);
 
-    private static final String topico = "pedidos-criados";
+    private static final String topicoCriacao = "pedidos-criados";
 
     private final KafkaTemplate<String, Pedido> kafkaTemplate;
 
@@ -23,13 +21,14 @@ public class PedidoProducerService {
     }
 
     public void enviarPedido(Pedido pedido) {
-        // Usamos uma String como chave para garantir roteamento (se necessário depois)
-        String chaveMessage = UUID.randomUUID().toString();
+        // Usamos o pedidoId como chave para garantir que todas as mensagens relacionadas a ele sejam
+        // agrupadas de forma sequencial e na mesma partição
+        String chavePedido = String.valueOf(pedido.getPedidoId());
 
         // Envia para o tópico, com a chave e o objeto serializado
-        kafkaTemplate.send(topico, chaveMessage, pedido);
+        kafkaTemplate.send(topicoCriacao, chavePedido, pedido);
 
-        log.info("📦 Pedido enviado para o Kafka com sucesso: {} (ID: {}, Qtd: {}, Chave: {})", pedido.getDescricao(), pedido.getPedidoId(), pedido.getQuantidade(), chaveMessage);
+        log.info("📦 Pedido enviado para o Kafka com sucesso: {} (ID: {}, Qtd: {}, Chave: {})", pedido.getDescricao(), pedido.getPedidoId(), pedido.getQuantidade(), chavePedido);
     }
 
 }

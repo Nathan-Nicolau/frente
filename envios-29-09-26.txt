@@ -131,3 +131,11 @@
 2026-09-29 22:52:23.533 [http-nio-8081-exec-2] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1790733143531
 2026-09-29 22:52:23.976 [kafka-producer-network-thread | frente-producer-1] INFO  org.apache.kafka.clients.Metadata - [Producer clientId=frente-producer-1] Cluster ID: MkU3OEVBNTcwNTJENDM2Qg
 2026-09-29 22:52:24.086 [http-nio-8081-exec-2] INFO  n.p.a.f.s.PedidoProducerService - 📦 Pedido enviado para o Kafka com sucesso: Monitor Gamer 144hz (ID: 1790733143112, Qtd: 99, Chave: ebcf14d1-6c53-4c31-9489-3e9168ccf40a)
+2026-09-29 23:07:28.719 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-29 23:07:28.725 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-09-29 23:07:28.728 [SpringApplicationShutdownHook] INFO  o.a.k.clients.producer.KafkaProducer - [Producer clientId=frente-producer-1] Closing the Kafka producer with timeoutMillis = 30000 ms.
+2026-09-29 23:07:28.737 [SpringApplicationShutdownHook] INFO  o.a.kafka.common.metrics.Metrics - Metrics scheduler closed
+2026-09-29 23:07:28.738 [SpringApplicationShutdownHook] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-09-29 23:07:28.738 [SpringApplicationShutdownHook] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-09-29 23:07:28.738 [SpringApplicationShutdownHook] INFO  o.a.kafka.common.metrics.Metrics - Metrics reporters closed
+2026-09-29 23:07:28.739 [SpringApplicationShutdownHook] INFO  o.a.kafka.common.utils.AppInfoParser - App info kafka.producer for frente-producer-1 unregistered

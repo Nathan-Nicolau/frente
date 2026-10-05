@@ -2,6 +2,7 @@ spring:
   application:
     name: frente # Essa API serve somente como ponte de processamento para o estoque
   kafka:
+    # O frente atua como Produtor de mensagens na emissão de novos pedidos
     producer:
       # Aponta para o broker local (Servidor Kafka) no container Docker
       bootstrap-servers: localhost:9092
@@ -12,6 +13,17 @@ spring:
       properties:
         # Acks=1 (padrão): o broker líder precisa confirmar o recebimento
         acks: 1
+    # Confuguramos aqui também para que ele consumo do tópico de confirmação de pedidos realizados
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: grupo-frente
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: nathan.pedidos.api.frente.model.PedidoStatusEvent
 
 server:
   port: 8081 # Rodando na 8081 para não conflitar com a outra aplicação depois
