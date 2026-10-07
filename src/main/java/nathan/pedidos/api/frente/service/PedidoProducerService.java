@@ -1,6 +1,6 @@
 package nathan.pedidos.api.frente.service;
 
-import nathan.pedidos.api.frente.model.Pedido;
+import nathan.pedidos.api.frente.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -28,7 +28,7 @@ public class PedidoProducerService {
         // Envia para o tópico, com a chave e o objeto serializado
         kafkaTemplate.send(topicoCriacao, chavePedido, pedido);
 
-        log.info("📦 Pedido enviado para o Kafka com sucesso: {} (ID: {}, Qtd: {}, Chave: {})", pedido.getDescricao(), pedido.getPedidoId(), pedido.getQuantidade(), chavePedido);
+        log.info("📦 Pedido enviado para o Kafka com sucesso: {} (ID: {}, Quantidade: {}, Chave: {})", pedido.getDescricao(), pedido.getPedidoId(), pedido.getQuantidade(), chavePedido);
     }
 
 }

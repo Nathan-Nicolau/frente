@@ -22,11 +22,6 @@ public class PedidoController {
 
     @PostMapping
     public ResponseEntity<String> criarPedido(@RequestBody Pedido pedido) {
-        // Simulação simples: caso o ID não venha preenchido, preenchemos
-        if (pedido.getPedidoId() == null) {
-            pedido.setPedidoId(System.currentTimeMillis());
-        }
-
         // Chama o serviço que publica no Kafka
         pedidoProducerService.enviarPedido(pedido);
 
